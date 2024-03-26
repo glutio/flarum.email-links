@@ -1,0 +1,31 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Glutio\\EmailLinks\\": "src/"
+        }
+    },    
+    "name": "glutio/email-links",
+    "description": "Convert Flarum emails to HTML and make email links clickable.",
+    "type": "flarum-extension",
+    "version": "0.0.1",
+    "keywords": [
+        "flarum",
+        "html",
+        "email",
+        "link",
+        "links"
+    ],
+    "homepage": "https://github.com/glutio/flarum.domainsso",
+    "license": "MIT",
+    "extra": {
+        "flarum-extension": {
+            "title": "EmailLinks",
+            "category": "feature",
+            "icon": {
+                "name": "fas fa-user-lock",
+                "backgroundColor": "#555b51",
+                "color": "#fff"
+            }
+        }
+    }
+}

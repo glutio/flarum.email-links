@@ -1,0 +1,1 @@
+Convert Flarum emails to HTML and make email links clickable.
