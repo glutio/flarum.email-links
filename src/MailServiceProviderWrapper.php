@@ -45,17 +45,18 @@ class Swift_TransportWrapper implements Swift_Transport
   private function linkify($text)
   {
     $newText = $text;
+
     // Url by itself
-    $urlPattern = '/(?:^|\s)((?:http|https):\/\/[^\s]+)/';
-    $newText = preg_replace($urlPattern, '<a href="$0">$0</a>', $newText);
+    $urlPattern = '/(?<=^|\s)((?:http|https):\/\/[^\s]+)/';
+    $newText = preg_replace($urlPattern, '<a href="$1">$1</a>', $newText);
 
     // Url in parentheses
-    $urlPattern = '/(?:^|\s)\({1}((?:http|https):\/\/[^\s]+)\){1}/';
-    $newText = preg_replace($urlPattern, '(<a href="$0">$0</a>)', $newText);
+    $urlPattern = '/(?<=^|\s)\({1}((?:http|https):\/\/[^\s]+)\){1}/';
+    $newText = preg_replace($urlPattern, '(<a href="$1">$1</a>)', $newText);
 
     // Url in brackets
-    $urlPattern = '/(?:^|\s)\[{1}((?:http|https):\/\/[^\s]+)\]{1}/';
-    $newText = preg_replace($urlPattern, '[<a href="$0">$0</a>]', $newText);
+    $urlPattern = '/(?<=^|\s)\[{1}((?:http|https):\/\/[^\s]+)\]{1}/';
+    $newText = preg_replace($urlPattern, '[<a href="$1">$1</a>]', $newText);
 
     return $text == $newText ? null : $newText;
   }
@@ -88,7 +89,7 @@ class Swift_TransportWrapper implements Swift_Transport
 
     // If no HTML part exists and the plain text content has links, create and add an HTML part
     if (!$hasHtml && $htmlContent !== null) {
-      $html = '<html><body>' . $htmlContent . '</body></html>';
+      $html = '<html><body>' . nl2br($htmlContent) . '</body></html>';
       $htmlPart = new Swift_MimePart($html, 'text/html');
       $message->attach($htmlPart); // Use 'attach' to add the HTML part
     }
@@ -106,9 +107,9 @@ class Swift_TransportWrapper implements Swift_Transport
 class MailDriverWrapper implements DriverInterface
 {
   private $driver;
-  public function __construct(Container $container)
+  public function __construct(DriverInterface $driver)
   {
-    $this->driver = $container->make('mail.driver');
+    $this->driver = $driver;
   }
   public function availableSettings(): array
   {
@@ -134,7 +135,8 @@ class MailServiceProviderWrapper extends AbstractServiceProvider
   public function register()
   {
     $this->container->extend('mail.driver', function ($configured, Container $container) {
-      if ($configured instanceof NullDriver || $configured instanceof LogDriver) {
+      if ($configured instanceof NullDriver || $configured instanceof LogDriver) 
+      {
         return $configured;
       }
       return new MailDriverWrapper($configured);

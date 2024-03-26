@@ -17,6 +17,12 @@
     ],
     "homepage": "https://github.com/glutio/flarum.domainsso",
     "license": "MIT",
+    "require": {
+        "flarum/core": "^1.8"
+    },
+    "support": {
+        "source": "https://github.com/glutio/flarum.email-links",
+    },
     "extra": {
         "flarum-extension": {
             "title": "EmailLinks",
