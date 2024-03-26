@@ -21,15 +21,15 @@
         "flarum/core": "^1.8"
     },
     "support": {
-        "source": "https://github.com/glutio/flarum.email-links",
+        "source": "https://github.com/glutio/flarum.email-links"
     },
     "extra": {
         "flarum-extension": {
-            "title": "EmailLinks",
+            "title": "Email Links",
             "category": "feature",
             "icon": {
-                "name": "fas fa-user-lock",
-                "backgroundColor": "#555b51",
+                "name": "fas fa-link",
+                "backgroundColor": "#7b8fa3",
                 "color": "#fff"
             }
         }
