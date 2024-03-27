@@ -15,7 +15,7 @@
         "link",
         "links"
     ],
-    "homepage": "https://github.com/glutio/flarum.domainsso",
+    "homepage": "https://github.com/glutio/flarum.email-links",
     "license": "MIT",
     "require": {
         "flarum/core": "^1.8"
